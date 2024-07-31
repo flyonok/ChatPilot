@@ -40,8 +40,8 @@ class ChatAgent:
             self,
             model_type: str = "openai",
             model_name: str = "gpt-3.5-turbo-1106",
-            model_api_key: str = os.getenv("OPENAI_API_KEY"),
-            model_api_base: str = os.getenv("OPENAI_API_BASE"),
+            model_api_key: str = os.getenv("OPENAI_API_KEY"), # type:ignore
+            model_api_base: str = os.getenv("OPENAI_API_BASE"), # type:ignore
             search_name: Optional[str] = "serper",
             agent_type: str = "react",
             enable_search_tool: Optional[bool] = None,
@@ -101,9 +101,9 @@ class ChatAgent:
         # Define llm
         if model_type == 'azure':
             self.llm = AzureChatOpenAI(
-                openai_api_version=os.environ.get("OPENAI_API_VERSION"),
-                openai_api_base=model_api_base,
-                openai_api_key=model_api_key,
+                openai_api_version=os.environ.get("OPENAI_API_VERSION"), # type:ignore
+                openai_api_base=model_api_base, # type:ignore
+                openai_api_key=model_api_key, # type:ignore
                 temperature=temperature,
                 max_tokens=max_tokens,
                 timeout=max_execution_time,
@@ -115,8 +115,8 @@ class ChatAgent:
             self.llm = ChatOpenAI(
                 model=model_name,
                 temperature=temperature,
-                openai_api_key=model_api_key,
-                openai_api_base=model_api_base,
+                openai_api_key=model_api_key, # type:ignore
+                openai_api_base=model_api_base, # type:ignore
                 max_tokens=max_tokens,
                 timeout=max_execution_time,
                 streaming=streaming,
@@ -124,11 +124,11 @@ class ChatAgent:
             )
         elif model_type == 'dashscope':
             self.llm = ChatTongyi(
-                model_name=model_name,
-                dashscope_api_key=model_api_key,
-                temperature=temperature,
-                max_tokens=max_tokens,
-                timeout=max_execution_time,
+                model_name=model_name, # type:ignore
+                dashscope_api_key=model_api_key, # type:ignore
+                temperature=temperature, # type:ignore
+                max_tokens=max_tokens, # type:ignore
+                timeout=max_execution_time, # type:ignore
                 streaming=streaming,
                 **kwargs
             )
