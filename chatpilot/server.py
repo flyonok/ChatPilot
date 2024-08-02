@@ -7,6 +7,8 @@ import json
 import os
 import time
 from typing import List
+import sys
+sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), r'..'))
 
 import requests
 from fastapi import FastAPI, Request, Depends, status
@@ -234,3 +236,7 @@ app.mount("/static", StaticFiles(directory=FRONTEND_STATIC_DIR), name="static")
 app.mount("/cache", StaticFiles(directory=CACHE_DIR), name="cache")
 
 app.mount("/", SPAStaticFiles(directory=FRONTEND_BUILD_DIR, html=True), name="spa-static-files")
+
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8080)

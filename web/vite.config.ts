@@ -6,16 +6,4 @@ export default defineConfig({
 	define: {
 		APP_VERSION: JSON.stringify(process.env.npm_package_version)
 	},
-	build: {
-		rollupOptions: {
-			output: {
-				format: 'es'
-			}
-		}
-	},
-	server: {
-		mimeTypes: {
-			'application/javascript': ['js', 'mjs']
-		}
-	},
 });
