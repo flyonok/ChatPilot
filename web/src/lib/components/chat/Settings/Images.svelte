@@ -48,6 +48,7 @@
 	};
 
 	const updateAUTOMATIC1111UrlHandler = async () => {
+		console.log('start updateAUTOMATIC1111UrlHandler');
 		const res = await updateAUTOMATIC1111Url(localStorage.token, AUTOMATIC1111_BASE_URL).catch(
 			(error) => {
 				toast.error(error);

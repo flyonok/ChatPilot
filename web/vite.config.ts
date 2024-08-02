@@ -1,8 +1,9 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
+import { nodeLoaderPlugin } from "@vavite/node-loader/plugin";
 
 export default defineConfig({
-	plugins: [sveltekit()],
+	plugins: [sveltekit(),nodeLoaderPlugin()],
 	define: {
 		APP_VERSION: JSON.stringify(process.env.npm_package_version)
 	},
