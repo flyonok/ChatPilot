@@ -19,6 +19,7 @@ from loguru import logger
 from pydantic import BaseModel
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.base import BaseHTTPMiddleware
+from fastapi.responses import RedirectResponse
 
 from chatpilot.apps.audio_app import app as audio_app
 from chatpilot.apps.auth_utils import get_admin_user
@@ -140,12 +141,16 @@ app.add_middleware(
 
 @app.middleware("http")
 async def check_url(request: Request, call_next):
-    start_time = int(time.time())
-    response = await call_next(request)
-    process_time = int(time.time()) - start_time
-    response.headers["X-Process-Time"] = str(process_time)
+    try:
+        start_time = int(time.time())
+        response = await call_next(request)
+        process_time = int(time.time()) - start_time
+        response.headers["X-Process-Time"] = str(process_time)
 
-    return response
+        return response
+    except Exception as e:
+        # return JSONResponse(status_code=500, content={"message": str(e)})
+        return RedirectResponse(url="/index.html")
 
 
 @app.on_event("startup")
